@@ -27,13 +27,16 @@ int main() {
       return 0;
     }
 
-    for (int i = 0; i<len;i++) { // Проверка чтобы не выйти за рамки алфавита в таблице ASCII
+    for (int i = 0; i<len;i++) { // Проверки чтобы не выйти за рамки алфавита в таблице ASCII
       if (*(str+i)=='z') {
       *(str+i)='a';
       continue;
       }
       else if (*(str+i)=='Z') {
         *(str+i)='A';
+        continue;
+      }
+      else if (*(str+i)==' ') { // Пробел не меняется
         continue;
       }
       *(str+i)=*(str+i)+1; // Замена текущего символа на следующий в алфавите
