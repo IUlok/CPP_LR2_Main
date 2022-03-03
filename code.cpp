@@ -2,13 +2,13 @@
 #include <cctype>
 #include <clocale>
 #include <cstring>
+#include <string.h>
 using namespace std;
 
 int main() {
   char tmp[80];
   int len;
   char *str;
-  chat *p;
 
   setlocale(LC_ALL, "Russian");
 
@@ -16,7 +16,7 @@ int main() {
     cin.getline(tmp, 80);
     len = strlen(tmp)+1;
     str = new char[len];
-    p = strcpy_s(str, len, tmp);
+    strncpy(str, len, tmp);
 
     while (*str) {
       *str=(*str)++;
