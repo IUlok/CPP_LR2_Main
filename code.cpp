@@ -1,10 +1,7 @@
-// В 22 строке можно написать проверку. Но нужно-ли? Хммммммммм
-//ѡ҄ѾҒѳ!.!Ѽ҄҈҉ѹѺ!��ҁѶ��ѿѵѱѳѱ҃ѶѼҍ "c
 #include <iostream>
-#include <cctype>
-#include <cstring>
-#include <string.h>
-#include <clocale>
+#include <cctype> // Содежрит ф-ции обработки символов
+#include <cstring> // Содержит ф-ции обработки строк и массивов
+#include <clocale> // Для setlocale()
 using namespace std;
 
 int main() {
@@ -12,17 +9,25 @@ int main() {
   int len;
   char* str;
 
-  setlocale(LC_ALL, "Russian");
+  setlocale(LC_ALL, "Russian"); // Язык отображения - Русский
 
-  do {
-    int n=0;
+  while(1) { // Бесконечный цикл
     cout << "Ввод: ";
-    cin.getline(tmp, 80);
-    len = strlen(tmp)+1;
-    str = new char[len];
+    cin.getline(tmp, 80); // Заполнение массива tmp
+    len = strlen(tmp)+1; // Длина = длина введенного текста + 1 для динамической памяти
+    str = new char[len]; // Динамический символьный массив
     strncpy(str, tmp, len); // Использована эта ф-ция вместо strcpy_s, т.к. эту ф-цию не обрабатывает компилятор g++. Она не такая безопасная, но в текущей программе проблем не возникнет
 
-    for (int i = 0; i<len;i++) {
+    if (*str==0) { // Проверки на "острые углы"
+      cout << "Введена пустая строка!" << endl;
+      return 0;
+    }
+    else if (!(isalpha(tmp[len-3]) && isalpha(tmp[len-2]))) {
+      cout << "Введённый ряд символов не заканчивается двумя буквами, либо содержит не латинские буквы!" << endl;
+      return 0;
+    }
+
+    for (int i = 0; i<len;i++) { // Проверка чтобы не выйти за рамки алфавита в таблице ASCII
       if (*(str+i)=='z') {
       *(str+i)='a';
       continue;
@@ -31,11 +36,9 @@ int main() {
         *(str+i)='A';
         continue;
       }
-      *(str+i)=*(str+i)+1;
+      *(str+i)=*(str+i)+1; // Замена текущего символа на следующий в алфавите
     }
-
-    cout << str << endl;
-    delete []str;
-  } while(tmp[0] && (isalpha(tmp[len-3]) && isalpha(tmp[len-2])));
-  return 0;
+    cout << str << endl; // Полученная строка
+    delete []str; // Освобождение памяти str
+  }
 }
