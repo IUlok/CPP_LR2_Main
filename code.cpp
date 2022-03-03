@@ -10,7 +10,7 @@ int main() {
   int len;
   char* str;
 
-  setlocale(LC_ALL, "Russian");
+//   setlocale(LC_ALL, "Russian");
 
   do {
     cout << "Ввод: ";
@@ -19,13 +19,12 @@ int main() {
     str = new char[len];
     strncpy(str, tmp, len);
 
-    while (*str) {
-      *str=(*str)++;
-      str++;
-    }
-    cout << (*str) << endl;
+    // while (*str) {
+    //   *str=(*str)++;
+    //   *str++;
+    // }
+    cout << str << endl;
     delete []str;
-  }
-  while(isalpha(tmp[len-1])&&isalpha(tmp[len-2]));
+  } while(tmp[0] && isalpha(tmp[len-1]) && isalpha(tmp[len-2]));
   return 0;
 }
